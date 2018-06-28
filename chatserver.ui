@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>ChatServer</class>
+ <widget class="QMainWindow" name="ChatServer">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>313</width>
-    <height>590</height>
+    <width>344</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ChatServer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -157,7 +157,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>313</width>
+     <width>344</width>
      <height>25</height>
     </rect>
    </property>
