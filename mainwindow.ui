@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ChatServer</class>
- <widget class="QMainWindow" name="ChatServer">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>344</width>
-    <height>572</height>
+    <width>362</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ChatServer</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -20,12 +20,12 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Server</string>
+         <string>Client</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
@@ -49,18 +49,11 @@
        </layout>
       </item>
       <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_Listen">
+         <widget class="QPushButton" name="pushButton_Connect">
           <property name="text">
-           <string>Listen</string>
+           <string>Connect</string>
           </property>
          </widget>
         </item>
@@ -80,13 +73,6 @@
        </layout>
       </item>
       <item>
-       <widget class="Line" name="line_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="label_5">
         <property name="text">
          <string>Content:</string>
@@ -94,17 +80,10 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="textEdit_content"/>
+       <widget class="QTextEdit" name="textEdit_Content"/>
       </item>
       <item>
-       <widget class="Line" name="line_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
@@ -135,7 +114,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QPushButton" name="pushButton_Send">
           <property name="text">
@@ -157,7 +136,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>344</width>
+     <width>362</width>
      <height>25</height>
     </rect>
    </property>
