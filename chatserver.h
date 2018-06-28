@@ -29,6 +29,9 @@ private slots:
 
     void on_pushButton_Listen_clicked();
 
+    void on_toolButton_file_clicked();
+
+
 
 private:
     QTcpSocket *socket;
