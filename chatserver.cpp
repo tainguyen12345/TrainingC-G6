@@ -5,6 +5,7 @@
 #include <QHostAddress>
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 
 
 static const int DEFAULT_PORT = 6789;
@@ -44,8 +45,9 @@ ChatServer::~ChatServer()
     delete ui;
 }
 
+//send message -> compelate
 void ChatServer::send_message(){
-    socket->write(ui->lineEdit_Send->text().toLatin1());
+    QMessageBox box;
     qDebug() << "Send message is success!!!";
 
     bool s = socket->write(ui->lineEdit_Send->text().toLatin1());
@@ -55,20 +57,21 @@ void ChatServer::send_message(){
     }
     else{
         qDebug() << "Send message is error!!!";
+        box.setText("Send message error!");
+        box.exec();
     }
     ui->lineEdit_Send->clear();
-
 }
 
+//receive message -> compelate
 void ChatServer::receive_message(){
     qDebug() << "Have a messge!";
     ui->textEdit_content->append("Client: "+socket->readAll());
 }
 
+//add connect --> compelate
 void ChatServer::add_connect(){
     socket = server->nextPendingConnection();
-    if(!socket){
-    }
     QString m = "Hello Client!";
     qDebug() << "Have new connect";
     connect(socket,SIGNAL(readyRead()),this,SLOT(receive_message()));
@@ -77,12 +80,21 @@ void ChatServer::add_connect(){
     server->close();
 }
 
+//remove connect --> compelate
 void ChatServer::remove_connect(){
-    qDebug() << "Client connected!";
+    qDebug() << "Client Disconnect!";
+    QMessageBox box;
+    box.setText("Client close!");
+    box.exec();
+    server->close();
+    server->listen(server_add,port);
 }
 
+//--> Compelate
 void ChatServer::on_pushButton_Listen_clicked()
 {
+    QMessageBox box;
+    server->close();
     if(ui->pushButton_Listen->text() == "Listen"){
         server->listen(server_add, port);
         if(server->isListening()){
@@ -91,6 +103,8 @@ void ChatServer::on_pushButton_Listen_clicked()
         }
         else{
 
+            box.setText("Server error!");
+            box.exec();
             qDebug() << "Server listen is error!";
         }
     }
@@ -104,4 +118,14 @@ void ChatServer::on_pushButton_Listen_clicked()
             ui->pushButton_Listen->setText("Listen");
         }
     }
+}
+
+//box file --> Compelate
+void ChatServer::on_toolButton_file_clicked()
+{
+    QString filename = QFileDialog::getOpenFileName(this,"","/","");
+    if(filename.isEmpty()){
+        return;
+    }
+    ui->textEdit_content->append(filename);
 }
