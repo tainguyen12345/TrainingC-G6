@@ -18,6 +18,7 @@ ChatServer::ChatServer(QWidget *parent) :
 {
     ui->setupUi(this);
     server = new QTcpServer(this);
+    socket = new QTcpSocket(this);
     //set Ip and Port
     ui->lineEdit_Ip->setText("192.168.12.51");
     ui->lineEdit_Ip->setEnabled(false);
@@ -29,8 +30,6 @@ ChatServer::ChatServer(QWidget *parent) :
     ui->pushButton_Listen->setText("Listen");
     qDebug() << "No connect!";
 
-
-    //event slot
     connect(ui->pushButton_Send,SIGNAL(clicked(bool)),this,SLOT(send_message()));
     connect(ui->lineEdit_Send,SIGNAL(returnPressed()),this,SLOT(send_message()));
     connect(server,SIGNAL(newConnection()),this,SLOT(add_connect()));
@@ -45,22 +44,25 @@ ChatServer::~ChatServer()
     delete ui;
 }
 
-//send message -> compelate
 void ChatServer::send_message(){
     QMessageBox box;
-    qDebug() << "Send message is success!!!";
-
-    bool s = socket->write(ui->lineEdit_Send->text().toLatin1());
-    if(s){
-        qDebug() << "Send message is success!!!";
-        ui->textEdit_content->append("Server: " + ui->lineEdit_Send->text());
+    if(!socket->isOpen()){
+        ui->lineEdit_Send->clear();
+        qDebug()<< "Socket is not open, Cann't send message now";
+        box.information(this,tr("The Title"),tr("Socket is close! Cann't send message now!"));
     }
     else{
-        qDebug() << "Send message is error!!!";
-        box.setText("Send message error!");
-        box.exec();
+        bool a = socket->write(ui->lineEdit_Send->text().toLatin1());
+        if(a){
+            qDebug() << "Send message success!";
+            ui->textEdit_content->append("Server: " + ui->lineEdit_Send->text());
+            ui->lineEdit_Send->clear();
+        }
+        else{
+            qDebug() << socket->errorString();
+            box.information(this,tr("The Title"),tr("Message error!"));
+        }
     }
-    ui->lineEdit_Send->clear();
 }
 
 //receive message -> compelate
@@ -82,9 +84,9 @@ void ChatServer::add_connect(){
 
 //remove connect --> compelate
 void ChatServer::remove_connect(){
-    qDebug() << "Client Disconnect!";
+    qDebug() << "Socket close!";
     QMessageBox box;
-    box.setText("Client close!");
+    box.setText("Socket close!");
     box.exec();
     server->close();
     server->listen(server_add,port);
@@ -95,6 +97,9 @@ void ChatServer::on_pushButton_Listen_clicked()
 {
     QMessageBox box;
     server->close();
+    if(socket->isOpen()){
+        socket->close();
+    }
     if(ui->pushButton_Listen->text() == "Listen"){
         server->listen(server_add, port);
         if(server->isListening()){
@@ -102,9 +107,7 @@ void ChatServer::on_pushButton_Listen_clicked()
             ui->pushButton_Listen->setText("Sleep");
         }
         else{
-
-            box.setText("Server error!");
-            box.exec();
+            box.information(this,tr("The Title"),tr("Open Server error!"));
             qDebug() << "Server listen is error!";
         }
     }
@@ -115,6 +118,7 @@ void ChatServer::on_pushButton_Listen_clicked()
         }
         else{
             qDebug() << "Server is Close.";
+            ui->textEdit_content->append("Socket is close!");
             ui->pushButton_Listen->setText("Listen");
         }
     }
@@ -129,3 +133,4 @@ void ChatServer::on_toolButton_file_clicked()
     }
     ui->textEdit_content->append(filename);
 }
+
