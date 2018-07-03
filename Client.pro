@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-06-26T16:47:59
+# Project created by QtCreator 2018-06-25T17:03:25
 #
 #-------------------------------------------------
 
@@ -9,13 +9,13 @@ QT       += core gui network widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ChatServer
+TARGET = Client
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        chatserver.cpp
+        mainwindow.cpp
 
-HEADERS  += chatserver.h
+HEADERS  += mainwindow.h
 
-FORMS    += chatserver.ui
+FORMS    += mainwindow.ui
